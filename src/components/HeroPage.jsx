@@ -87,7 +87,7 @@ const HeroPage = () => {
       <nav className="absolute top-0 left-0 w-full relative z-[1000] flex justify-between items-center px-[90px] py-6 overflow-visible">
         
         <div 
-          className="text-white text-xl font-bold cursor-pointer hover:text-gray-300 transition-colors duration-200"
+          className="text-white text-2xl font-lamora cursor-pointer hover:text-gray-300 transition-colors duration-200"
           onClick={handleLogoClick}
         >
           ExhibitGo
@@ -96,7 +96,7 @@ const HeroPage = () => {
         <div className="flex items-center space-x-6">
           
           <div 
-            className="text-white text-sm font-medium tracking-wider hover:opacity-80 cursor-pointer transition-opacity duration-200"
+            className="text-white text-m font-lamora tracking-wider hover:opacity-80 cursor-pointer transition-opacity duration-200"
             onClick={handleAboutClick}
           >
             {getTranslation(selectedLanguage, 'nav.about')}
@@ -148,7 +148,11 @@ const HeroPage = () => {
             )}
           </div>
         </div>
+        
       </nav>
+      <div className="absolute top-[72px] left-0 right-0 mx-[90px] border-b border-white/50"></div>
+
+
 
       {/* Main Content Container */}
       <div className="relative z-10 flex justify-between items-start min-h-[calc(100vh-100px)] px-[90px] gap-12 pt-24">
@@ -164,7 +168,7 @@ const HeroPage = () => {
           </h1>
           
           {/* Description  */}
-          <p className="text-white/90 text-base mb-8 leading-relaxed max-w-md">
+          <p className="text-white/90 text-base font-roboto mb-8 leading-relaxed max-w-md">
             {getTranslation(selectedLanguage, 'hero.description')}
           </p>
 
@@ -187,7 +191,7 @@ const HeroPage = () => {
               {carouselImages.map((image, index) => (
                 <div 
                   key={index}
-                  className={`relative w-40 h-60 md:w-43 md:h-67 rounded-xl overflow-hidden transition-all duration-500 cursor-pointer ${
+                  className={`relative w-[150px] h-[200px] md:w-43 md:h-67 rounded-xl overflow-hidden transition-all duration-500 cursor-pointer ${
                     index === currentSlide 
                       ? 'opacity-100 scale-110 ring-2 ring-white ring-opacity-50' 
                       : 'opacity-70 scale-100 hover:opacity-90 hover:scale-105'

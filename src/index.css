@@ -15,3 +15,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+@font-face {
+  font-family: 'Lamora';
+  src: url('./assets/fonts/Lamora.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+

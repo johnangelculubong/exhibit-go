@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Lamora';
+  src: url('./assets/fonts/Lamora.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 .App {
   text-align: center;
 }
