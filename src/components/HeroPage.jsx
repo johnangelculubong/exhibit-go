@@ -37,8 +37,8 @@ const HeroPage = () => {
   };
 
   const handleExploreClick = () => {
-    navigate('/gallery');
-  };
+  navigate('/virtual-tour');
+};
 
   const handleLanguageChange = (languageCode) => {
     setSelectedLanguage(languageCode);
