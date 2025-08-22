@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Globe, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { ChevronRight, Globe, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { languages, translations, getTranslation } from './translations';
+import { languages, getTranslation } from './translations';
 import Pepe from "../assets/images/Pepe.jpg";
 import Andres from "../assets/images/Andres.jpg";
 import bgImage from "../assets/images/background.jpg";
@@ -46,17 +46,17 @@ const HeroPage = () => {
     setIsLanguageDropdownOpen(false);
   };
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-  };
+  }, [carouselImages.length]);
 
-  // Auto-advance carousel every 4 seconds
+  //Auto next slide
   useEffect(() => {
-    const interval = setInterval(nextSlide, 4000);
+    const interval = setInterval(nextSlide, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [nextSlide]);
 
-  // Close language dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isLanguageDropdownOpen && !event.target.closest('.language-dropdown')) {
@@ -79,13 +79,11 @@ const HeroPage = () => {
           backgroundImage: `url(${bgImage})`,
         }}
       >
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent"></div>
       </div>
 
-      {/* Navigation */}
+      {/* NavBar */}
       <nav className="absolute top-0 left-0 w-full relative z-[1000] flex justify-between items-center px-[90px] py-6 overflow-visible">
-        
         <div 
           className="text-white text-2xl font-lamora cursor-pointer hover:text-gray-300 transition-colors duration-200"
           onClick={handleLogoClick}
@@ -122,7 +120,7 @@ const HeroPage = () => {
               />
             </div>
 
-            {/* Dropdown Menu */}
+            {/* Language Menu */}
             {isLanguageDropdownOpen && (
               <div className="absolute top-12 right-0 bg-white/95 backdrop-blur-sm rounded-lg shadow-xl py-2 min-w-[140px] z-[9999] border border-white/20">
                 {languages.map((language) => (
@@ -154,10 +152,10 @@ const HeroPage = () => {
 
 
 
-      {/* Main Content Container */}
+      {/* Header Section */}
       <div className="relative z-10 flex justify-between items-start min-h-[calc(100vh-100px)] px-[90px] gap-12 pt-24">
         <div className="max-w-2xl">
-          {/* Main Heading  */}
+          {/* Title Heading  */}
           <h1 className="text-white text-5xl lg:text-6xl font-bold leading-tight mb-6">
             {getTranslation(selectedLanguage, 'hero.title').split('\n').map((line, index) => (
               <React.Fragment key={index}>
@@ -167,12 +165,11 @@ const HeroPage = () => {
             ))}
           </h1>
           
-          {/* Description  */}
+          {/* Sub Heading */}
           <p className="text-white/90 text-base font-roboto mb-8 leading-relaxed max-w-md">
             {getTranslation(selectedLanguage, 'hero.description')}
           </p>
 
-          {/* Explore Button */}
           <button 
             className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 hover:shadow-lg hover:scale-105 transform"
             onClick={handleExploreClick}
@@ -185,7 +182,7 @@ const HeroPage = () => {
       {/* Carousel Section  */}
       <div className="absolute bottom-8 left-8 z-10">
         <div className="flex items-center space-x-4">
-          {/* Carousel Container */}
+          
           <div className="relative">
             <div className="flex space-x-6 px-[90px]">
               {carouselImages.map((image, index) => (
@@ -211,7 +208,6 @@ const HeroPage = () => {
             </div>
           </div>
 
-          {/* Navigation Arrow */}
           <div className="flex flex-col space-y-2">
             <button 
               onClick={nextSlide}
@@ -223,7 +219,6 @@ const HeroPage = () => {
           </div>
         </div>
 
-        {/* Slide Indicators */}
         <div className="flex justify-center space-x-2 mt-6 p-4">
           {carouselImages.map((_, index) => (
             <button
@@ -240,7 +235,6 @@ const HeroPage = () => {
         </div>
       </div>
 
-      {/* Bottom Right Decorative Elements */}
       <div className="absolute bottom-0 right-0">
         <div className="w-32 h-32 relative">
           <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-white/10 to-transparent"></div>
@@ -254,7 +248,6 @@ const HeroPage = () => {
         </div>
       </div>
 
-      {/* Top Right Decorative Circle */}
       <div className="absolute top-1/4 right-12 w-16 h-16 bg-white/5 rounded-full"></div>
     </div>
   );
