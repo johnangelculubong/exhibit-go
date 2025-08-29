@@ -1,8 +1,7 @@
-// src/components/ArtifactModal.jsx
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Hero details (you can expand later with videos, links, etc.)
+// Hero details 
 const heroDetails = {
   "Hero 1": {
     name: "Andres Bonifacio",
