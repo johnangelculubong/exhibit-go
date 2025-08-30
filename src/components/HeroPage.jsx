@@ -108,7 +108,6 @@ const HeroPage = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
 
-      
       {isTransitioning && (
         <div className="fixed inset-0 z-[9999] pointer-events-none">
           <div className="absolute inset-0 bg-black animate-[circleOpening_1.2s_ease-out_forwards]"
@@ -134,11 +133,19 @@ const HeroPage = () => {
           0% { opacity: 0; transform: scale(0.5); }
           100% { opacity: 1; transform: scale(1); }
         }
+        @keyframes bgMove {
+          0% { transform: scale(1) translate(0, 0); }
+          50% { transform: scale(1.1) translate(-15px, -10px); }
+          100% { transform: scale(1) translate(0, 0); }
+        }
+        .animate-bgMove {
+          animation: bgMove 30s ease-in-out infinite;
+        }
       `}</style>
 
       {/* Background */}
       <div 
-        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${isTransitioning ? 'opacity-50' : 'opacity-100'}`}
+        className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ${isTransitioning ? 'opacity-50' : 'opacity-100'} animate-bgMove`}
         style={{ backgroundImage: `url(${bgImage})` }}
         role="img"
         aria-label="Hero background"
@@ -191,7 +198,7 @@ const HeroPage = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent h-px"></div>
       </div>
 
-      {/*Hero Content*/}
+      {/* Hero Content */}
       <header className={`relative z-10 flex justify-between items-start min-h-[calc(100vh-100px)] px-[90px] gap-12 pt-24 transition-all duration-1000 delay-300 ${isLoaded ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'} ${isTransitioning ? 'opacity-70' : 'opacity-100'}`}>
         <div className="max-w-2xl">
           <h1 className="text-white text-5xl lg:text-6xl font-bold leading-tight mb-6 drop-shadow-2xl">
