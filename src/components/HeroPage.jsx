@@ -6,6 +6,7 @@ import Pepe from "../assets/images/Pepe.jpg";
 import PhilAme from "../assets/images/ph-am.jpg";
 import Kkk from "../assets/images/kkk.jpg";
 import bgImage from "../assets/images/background.jpg";
+import "./HeroPage.css";
 
 // Constants
 const CAROUSEL_INTERVAL = 3000;
@@ -118,23 +119,24 @@ const HeroPage = () => {
                }}>
           </div>
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-white text-[110px] font-medium opacity-0 animate-[welcomeText_1.5s_ease-out_0.5s_forwards]">
+            <div className="text-white text-[110px] font-montserrat opacity-0 animate-[welcomeText_1.5s_ease-out_0.5s_forwards]">
               Welcome to ExhibitGo
             </div>
           </div>
         </div>
       )}
 
-      <style jsx>{`
-        @keyframes circleOpening {
-          0% { clip-path: circle(0% at center); }
-          100% { clip-path: circle(150% at center); }
-        }
-        @keyframes welcomeText {
-          0% { opacity: 0; transform: scale(0.5); }
-          100% { opacity: 1; transform: scale(1); }
-        }
-      `}</style>
+      <style>{`
+  @keyframes circleOpening {
+    0% { clip-path: circle(0% at center); }
+    100% { clip-path: circle(150% at center); }
+  }
+  @keyframes welcomeText {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+`}</style>
+
 
       {/* Background */}
       <div 

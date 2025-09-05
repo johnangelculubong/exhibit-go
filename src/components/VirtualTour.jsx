@@ -18,13 +18,32 @@ const VirtualTour = () => {
   const [showControls, setShowControls] = useState(true);
   const [zoomLevel, setZoomLevel] = useState(75);
   const [showShareMenu, setShowShareMenu] = useState(false);
-  const [currentRoom, setCurrentRoom] = useState("The Reform Room");
+  const [currentRoom, setCurrentRoom] = useState("The Philippine Heroes Room");
 
   const audioRef = useRef(null);
   const guideAudioRef = useRef(null);
   const rendererRef = useRef(null);
   const cameraRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
+
+  // 🔊 Unlock audio on first click/tap
+useEffect(() => {
+  const unlockAudio = () => {
+    const testAudio = new Audio();
+    testAudio.muted = true;
+    testAudio.play().finally(() => {
+      if (isMusicPlaying && audioRef.current) {
+        audioRef.current.play().catch(() => {});
+      }
+      document.removeEventListener("click", unlockAudio);
+      document.removeEventListener("touchstart", unlockAudio);
+      console.log("✅ Audio unlocked");
+    });
+  };
+  document.addEventListener("click", unlockAudio);
+  document.addEventListener("touchstart", unlockAudio);
+}, [isMusicPlaying]);
+
 
   // Auto-hide controls 
   useEffect(() => {
@@ -225,7 +244,9 @@ const VirtualTour = () => {
           audioRef.current.pause();
         }
 
-        guideAudioRef.current.play();
+        guideAudioRef.current.play().catch((err) => {
+  console.warn("Guide audio blocked:", err);
+});
 
         guideAudioRef.current.onended = () => {
           if (audioRef.current && isMusicPlaying) {
@@ -330,8 +351,12 @@ const VirtualTour = () => {
   // Background music effect
   useEffect(() => {
     if (!audioRef.current) return;
+  
     if (isMusicPlaying) {
-      audioRef.current.play();
+      // Try to play only if already unlocked
+      audioRef.current.play().catch(() => {
+        console.log("Background music blocked until user interaction.");
+      });
     } else {
       audioRef.current.pause();
     }
@@ -476,7 +501,10 @@ const VirtualTour = () => {
       <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
         <div className="bg-[#5A536E] bg-opacity-80 backdrop-blur-md rounded-full px-6 py-2 flex items-center space-x-4">
           {/* Previous */}
-          <button className="text-white hover:text-gray-300 transition-colors">
+          <button className="text-white hover:text-gray-300 transition-colors"
+          onClick={() => navigate("/")}
+          >
+             
             <Icon icon="mdi:chevron-left" className="w-8 h-8" />
           </button>
           
@@ -488,7 +516,10 @@ const VirtualTour = () => {
           </div>
           
           {/* Next */}
-          <button className="text-white hover:text-gray-300 transition-colors">
+          <button className="text-white hover:text-gray-300 transition-colors"
+          onClick={() => navigate("/virtual-tour/room2")}
+          >
+            
             <Icon icon="mdi:chevron-right" className="w-8 h-8" />
           </button>
         </div>
@@ -543,7 +574,8 @@ const VirtualTour = () => {
       />
 
       {/* Background Music */}
-      <audio ref={audioRef} src="/assets/echoes-of-the-forest-228395.mp3" autoPlay loop />
+      <audio ref={audioRef} src="/assets/echoes-of-the-forest-228395.mp3" loop />
+
 
       {/* Artifact Modal */}
       <ArtifactModal

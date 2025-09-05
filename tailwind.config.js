@@ -9,6 +9,7 @@ module.exports = {
       fontFamily: {
         lamora: ['Lamora', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },

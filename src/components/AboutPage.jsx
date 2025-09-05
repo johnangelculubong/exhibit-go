@@ -45,7 +45,7 @@ const AboutPage = () => {
           ></div>
 
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-white text-[120px] font-medium opacity-0"
+            <div className="text-white text-[110px] font-montserrat opacity-0"
                  style={{ animation: "welcomeText 1.5s ease-out 0.5s forwards" }}>
               Welcome to ExhibitGo
             </div>
