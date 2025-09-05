@@ -14,13 +14,10 @@ const heroDetails = {
     significance: "Founded the Katipunan revolutionary society",
     keyContribution: "Organized the masses against Spanish colonial rule",
     color: "#8B5A3C",
-    // Video data - replace with actual Base64 encoded video or local path
     video: {
       title: "The Life of Andres Bonifacio",
       description: "A documentary about the Father of the Philippine Revolution",
-      // For demo purposes, using a placeholder. Replace with actual video data:
-      // src: "data:video/mp4;base64,YOUR_BASE64_VIDEO_DATA_HERE"
-      src: "/assets/videos/bonifacio-history.mp4", // Local file approach
+      src: "/assets/videos/bonifacio-history.mp4",
       duration: "5:32"
     }
   },
@@ -106,13 +103,15 @@ const heroDetails = {
       title: "Dr. Jose Rizal: The National Hero",
       description: "The life and works of the Philippines' greatest hero",
       src: "/assets/videos/rizal-history.mp4",
-      
+      duration: "8:24"
     }
   },
 };
 
 // Video Modal Component
-const VideoModal = ({ isOpen, onClose, video, heroColor }) => {
+const VideoModal = ({ isOpen, onClose, video, heroColor, onVideoPlayingChange }) => {
+  const [isVideoReady, setIsVideoReady] = useState(false);
+
   const handleEscapeKey = useCallback((event) => {
     if (event.key === 'Escape') {
       onClose();
@@ -125,14 +124,37 @@ const VideoModal = ({ isOpen, onClose, video, heroColor }) => {
     }
   }, [onClose]);
 
+  // Video event handlers
+  const handleVideoPlay = useCallback(() => {
+    console.log("Video started playing - muting background audio");
+    onVideoPlayingChange(true);
+  }, [onVideoPlayingChange]);
+
+  const handleVideoPause = useCallback(() => {
+    console.log("Video paused - allowing background audio");
+    onVideoPlayingChange(false);
+  }, [onVideoPlayingChange]);
+
+  const handleVideoEnded = useCallback(() => {
+    console.log("Video ended - allowing background audio");
+    onVideoPlayingChange(false);
+  }, [onVideoPlayingChange]);
+
+  const handleVideoError = useCallback(() => {
+    console.log("Video error - allowing background audio");
+    onVideoPlayingChange(false);
+  }, [onVideoPlayingChange]);
+
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('keydown', handleEscapeKey);
     }
     return () => {
       document.removeEventListener('keydown', handleEscapeKey);
+      // Reset video playing state when modal closes
+      onVideoPlayingChange(false);
     };
-  }, [isOpen, handleEscapeKey]);
+  }, [isOpen, handleEscapeKey, onVideoPlayingChange]);
 
   if (!isOpen || !video) return null;
 
@@ -178,13 +200,25 @@ const VideoModal = ({ isOpen, onClose, video, heroColor }) => {
               controls
               autoPlay
               className="w-full h-auto max-h-[60vh]"
-              poster="/assets/video-posters/hero-thumbnail.jpg" // Optional poster image
+              poster="/assets/video-posters/hero-thumbnail.jpg"
+              onPlay={handleVideoPlay}
+              onPause={handleVideoPause}
+              onEnded={handleVideoEnded}
+              onError={handleVideoError}
+              onLoadedData={() => setIsVideoReady(true)}
             >
               <source src={video.src} type="video/mp4" />
               <p className="text-center p-4 text-gray-600">
                 Your browser does not support the video tag.
               </p>
             </video>
+
+            {/* Loading indicator */}
+            {!isVideoReady && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+              </div>
+            )}
           </div>
 
           {/* Video Info */}
@@ -192,11 +226,16 @@ const VideoModal = ({ isOpen, onClose, video, heroColor }) => {
             <div className="flex items-center justify-between text-sm text-gray-600">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
+                  <Icon icon="mdi:clock" className="w-4 h-4" />
+                  <span>{video.duration}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Icon icon="mdi:video" className="w-4 h-4" />
                   <span>Historical Documentary</span>
                 </div>
+              </div>
+              <div className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                Audio automatically managed
               </div>
             </div>
           </div>
@@ -206,7 +245,7 @@ const VideoModal = ({ isOpen, onClose, video, heroColor }) => {
   );
 };
 
-const ArtifactModal = ({ isOpen, onClose, artifact }) => {
+const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
   // Handle escape key press
@@ -223,6 +262,12 @@ const ArtifactModal = ({ isOpen, onClose, artifact }) => {
     }
   }, [onClose]);
 
+  // Close video when modal closes
+  const handleModalClose = useCallback(() => {
+    setIsVideoOpen(false);
+    onClose();
+  }, [onClose]);
+
   // Add event listeners
   useEffect(() => {
     if (isOpen) {
@@ -235,6 +280,14 @@ const ArtifactModal = ({ isOpen, onClose, artifact }) => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen, handleEscapeKey]);
+
+  // Reset video playing state when artifact modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setIsVideoOpen(false);
+      onVideoPlayingChange(false);
+    }
+  }, [isOpen, onVideoPlayingChange]);
 
   if (!isOpen || !artifact) return null;
 
@@ -282,7 +335,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact }) => {
 
               {/* Close button */}
               <motion.button
-                onClick={onClose}
+                onClick={handleModalClose}
                 className="absolute top-4 right-4 w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-800 transition-colors z-10"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -383,7 +436,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact }) => {
                       whileTap={{ scale: 0.95 }}
                     >
                       <Icon icon="mdi:video-outline" className="w-4 h-4" />
-                      Watch History of Rizal
+                      Watch History of {hero.name}
                     </motion.button>
                   </motion.div>
                 )}
@@ -493,7 +546,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact }) => {
                   className="flex flex-col sm:flex-row gap-3 justify-end"
                 >
                   <motion.button
-                    onClick={onClose}
+                    onClick={handleModalClose}
                     className="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
@@ -542,6 +595,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact }) => {
         onClose={() => setIsVideoOpen(false)}
         video={hero?.video}
         heroColor={hero?.color}
+        onVideoPlayingChange={onVideoPlayingChange}
       />
     </>
   );

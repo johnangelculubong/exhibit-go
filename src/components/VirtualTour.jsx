@@ -11,6 +11,7 @@ const VirtualTour = () => {
 
   const [selectedArtifact, setSelectedArtifact] = useState(null);
   const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showInstructions, setShowInstructions] = useState(true);
   const [hotspotCount, setHotspotCount] = useState(0);
@@ -25,25 +26,35 @@ const VirtualTour = () => {
   const rendererRef = useRef(null);
   const cameraRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
+  const isMusicPlayingRef = useRef(isMusicPlaying);
+  const isVideoPlayingRef = useRef(isVideoPlaying);
+
+  // Sync refs with state
+  useEffect(() => {
+    isMusicPlayingRef.current = isMusicPlaying;
+  }, [isMusicPlaying]);
+
+  useEffect(() => {
+    isVideoPlayingRef.current = isVideoPlaying;
+  }, [isVideoPlaying]);
 
   // 🔊 Unlock audio on first click/tap
-useEffect(() => {
-  const unlockAudio = () => {
-    const testAudio = new Audio();
-    testAudio.muted = true;
-    testAudio.play().finally(() => {
-      if (isMusicPlaying && audioRef.current) {
-        audioRef.current.play().catch(() => {});
-      }
-      document.removeEventListener("click", unlockAudio);
-      document.removeEventListener("touchstart", unlockAudio);
-      console.log("✅ Audio unlocked");
-    });
-  };
-  document.addEventListener("click", unlockAudio);
-  document.addEventListener("touchstart", unlockAudio);
-}, [isMusicPlaying]);
-
+  useEffect(() => {
+    const unlockAudio = () => {
+      const testAudio = new Audio();
+      testAudio.muted = true;
+      testAudio.play().finally(() => {
+        if (isMusicPlayingRef.current && audioRef.current) {
+          audioRef.current.play().catch(() => {});
+        }
+        document.removeEventListener("click", unlockAudio);
+        document.removeEventListener("touchstart", unlockAudio);
+        console.log("✅ Audio unlocked");
+      });
+    };
+    document.addEventListener("click", unlockAudio);
+    document.addEventListener("touchstart", unlockAudio);
+  }, []);
 
   // Auto-hide controls 
   useEffect(() => {
@@ -161,7 +172,6 @@ useEffect(() => {
 
     setHotspotCount(hotspotDefs.length);
 
-     
     const hotspotMeshes = [];
     const makeHotspot = ({ yaw, pitch, label, audio }) => {
       const pos = anglesToVec3(yaw, pitch);
@@ -240,17 +250,22 @@ useEffect(() => {
 
         guideAudioRef.current = new Audio(audio);
 
+        // Pause background music when guide audio plays
         if (audioRef.current && !audioRef.current.paused) {
           audioRef.current.pause();
         }
 
         guideAudioRef.current.play().catch((err) => {
-  console.warn("Guide audio blocked:", err);
-});
+          console.warn("Guide audio blocked:", err);
+        });
 
+        // FIXED: Use ref to get current states (not captured in closure)
         guideAudioRef.current.onended = () => {
-          if (audioRef.current && isMusicPlaying) {
-            audioRef.current.play();
+          // Only resume background music if user wants it AND no video is playing
+          if (audioRef.current && isMusicPlayingRef.current && !isVideoPlayingRef.current) {
+            audioRef.current.play().catch((err) => {
+              console.warn("Background music resume blocked:", err);
+            });
           }
         };
       }
@@ -294,10 +309,8 @@ useEffect(() => {
     renderer.domElement.addEventListener("touchmove", onPointerMove);
     renderer.domElement.addEventListener("touchend", onPointerEnd);
 
-    
     const animate = () => {
       requestAnimationFrame(animate);
-      
       
       const time = Date.now() * 0.002;
       hotspotMeshes.forEach((hotspot, index) => {
@@ -305,7 +318,6 @@ useEffect(() => {
           const phase = hotspot.userData.pulsePhase + time;
           const scale = 1 + Math.sin(phase) * 0.2;
           hotspot.scale.setScalar(scale);
-          
           
           const hue = (time + index * 0.5) % 1;
           hotspot.material.color.setHSL(0.55 + hue * 0.1, 0.8, 0.6);
@@ -340,7 +352,6 @@ useEffect(() => {
     };
   }, []);
 
-  
   useEffect(() => {
     if (cameraRef.current) {
       cameraRef.current.fov = zoomLevel;
@@ -348,21 +359,22 @@ useEffect(() => {
     }
   }, [zoomLevel]);
 
-  // Background music effect
+  // Background music effect - mute when video is playing
   useEffect(() => {
     if (!audioRef.current) return;
   
-    if (isMusicPlaying) {
-      // Try to play only if already unlocked
+    // Mute if video is playing OR user has muted manually
+    if (isMusicPlaying && !isVideoPlaying) {
+      // Try to play only if music should be playing and no video is playing
       audioRef.current.play().catch(() => {
         console.log("Background music blocked until user interaction.");
       });
     } else {
       audioRef.current.pause();
     }
-  }, [isMusicPlaying]);
+  }, [isMusicPlaying, isVideoPlaying]);
 
-  // Zoom functions
+  // Function definitions
   const zoomIn = () => {
     setZoomLevel(prev => Math.max(30, prev - 10));
   };
@@ -371,7 +383,6 @@ useEffect(() => {
     setZoomLevel(prev => Math.min(120, prev + 10));
   };
 
-  // Fullscreen functions
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       containerRef.current?.requestFullscreen();
@@ -380,7 +391,6 @@ useEffect(() => {
     }
   };
 
-  // Share functions
   const shareOptions = [
     {
       name: 'Copy Link',
@@ -417,6 +427,11 @@ useEffect(() => {
     setIsMusicPlaying(prev => !prev);
   };
 
+  const handleVideoPlayingChange = (isPlaying) => {
+    setIsVideoPlaying(isPlaying);
+    console.log(isPlaying ? "Video started - background audio muted" : "Video stopped - background audio available");
+  };
+
   const handleCloseModal = () => {
     setSelectedArtifact(null);
 
@@ -426,8 +441,11 @@ useEffect(() => {
       guideAudioRef.current = null;
     }
 
-    if (audioRef.current && isMusicPlaying) {
-      audioRef.current.play();
+    // FIXED: Only resume background music if it should be playing AND no video is playing
+    if (audioRef.current && isMusicPlaying && !isVideoPlaying) {
+      audioRef.current.play().catch((err) => {
+        console.warn("Background music resume blocked:", err);
+      });
     }
   };
 
@@ -504,11 +522,9 @@ useEffect(() => {
           <button className="text-white hover:text-gray-300 transition-colors"
           onClick={() => navigate("/")}
           >
-             
             <Icon icon="mdi:chevron-left" className="w-8 h-8" />
           </button>
           
-         
           <div className="grid grid-cols-2 gap-1">
             {[...Array(4)].map((_, i) => (
               <div key={i} className={`w-5 h-5 rounded-sm ${i === 1 ? 'bg-white' : 'bg-white bg-opacity-50'}`}></div>
@@ -519,7 +535,6 @@ useEffect(() => {
           <button className="text-white hover:text-gray-300 transition-colors"
           onClick={() => navigate("/virtual-tour/room2")}
           >
-            
             <Icon icon="mdi:chevron-right" className="w-8 h-8" />
           </button>
         </div>
@@ -576,12 +591,12 @@ useEffect(() => {
       {/* Background Music */}
       <audio ref={audioRef} src="/assets/echoes-of-the-forest-228395.mp3" loop />
 
-
       {/* Artifact Modal */}
       <ArtifactModal
         isOpen={!!selectedArtifact}
         artifact={selectedArtifact}
         onClose={handleCloseModal}
+        onVideoPlayingChange={handleVideoPlayingChange}
       />
 
       {/* close share menu */}
