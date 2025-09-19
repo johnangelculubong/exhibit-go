@@ -29,7 +29,7 @@ const VirtualTour = () => {
   const isMusicPlayingRef = useRef(isMusicPlaying);
   const isVideoPlayingRef = useRef(isVideoPlaying);
 
-  // Sync refs with state
+  
   useEffect(() => {
     isMusicPlayingRef.current = isMusicPlaying;
   }, [isMusicPlaying]);
@@ -38,7 +38,7 @@ const VirtualTour = () => {
     isVideoPlayingRef.current = isVideoPlaying;
   }, [isVideoPlaying]);
 
-  // 🔊 Unlock audio on first click/tap
+  
   useEffect(() => {
     const unlockAudio = () => {
       const testAudio = new Audio();
@@ -56,7 +56,7 @@ const VirtualTour = () => {
     document.addEventListener("touchstart", unlockAudio);
   }, []);
 
-  // Auto-hide controls 
+  
   useEffect(() => {
     const resetControlsTimeout = () => {
       setShowControls(true);
@@ -81,7 +81,7 @@ const VirtualTour = () => {
     };
   }, [showShareMenu]);
 
-  // Fullscreen handling
+  
   useEffect(() => {
     const handleFullscreenChange = () => {
       setIsFullscreen(!!document.fullscreenElement);
@@ -91,12 +91,12 @@ const VirtualTour = () => {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  //  Scene setup (runs once) 
+   
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
 
-    //  Scene & Camera 
+    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       zoomLevel,
@@ -250,7 +250,7 @@ const VirtualTour = () => {
 
         guideAudioRef.current = new Audio(audio);
 
-        // Pause background music when guide audio plays
+        
         if (audioRef.current && !audioRef.current.paused) {
           audioRef.current.pause();
         }
@@ -259,9 +259,9 @@ const VirtualTour = () => {
           console.warn("Guide audio blocked:", err);
         });
 
-        // FIXED: Use ref to get current states (not captured in closure)
+        
         guideAudioRef.current.onended = () => {
-          // Only resume background music if user wants it AND no video is playing
+          
           if (audioRef.current && isMusicPlayingRef.current && !isVideoPlayingRef.current) {
             audioRef.current.play().catch((err) => {
               console.warn("Background music resume blocked:", err);
@@ -359,13 +359,13 @@ const VirtualTour = () => {
     }
   }, [zoomLevel]);
 
-  // Background music effect - mute when video is playing
+  
   useEffect(() => {
     if (!audioRef.current) return;
   
-    // Mute if video is playing OR user has muted manually
+    
     if (isMusicPlaying && !isVideoPlaying) {
-      // Try to play only if music should be playing and no video is playing
+      
       audioRef.current.play().catch(() => {
         console.log("Background music blocked until user interaction.");
       });
@@ -374,7 +374,7 @@ const VirtualTour = () => {
     }
   }, [isMusicPlaying, isVideoPlaying]);
 
-  // Function definitions
+  
   const zoomIn = () => {
     setZoomLevel(prev => Math.max(30, prev - 10));
   };
@@ -441,7 +441,7 @@ const VirtualTour = () => {
       guideAudioRef.current = null;
     }
 
-    // FIXED: Only resume background music if it should be playing AND no video is playing
+    
     if (audioRef.current && isMusicPlaying && !isVideoPlaying) {
       audioRef.current.play().catch((err) => {
         console.warn("Background music resume blocked:", err);
@@ -461,7 +461,7 @@ const VirtualTour = () => {
         </div>
       )}
 
-      {/* Controls: Zoom, Home, Minus */}
+      {/* Controls: Zoom-In, Home, Zoom-Out */}
       <div className={`px-[30px] absolute top-4 right-4 z-30 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
         <div className="bg-[#5A536E] bg-opacity-80 backdrop-blur-md rounded-full px-8 py-4 flex items-center space-x-[24px]">
           {/* Zoom In */}

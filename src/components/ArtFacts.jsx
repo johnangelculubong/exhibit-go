@@ -83,9 +83,9 @@ const ArtFacts = () => {
       document.removeEventListener('touchstart', handleTouchStart);
       clearTimeout(controlsTimeoutRef.current);
     };
-  }, [showShareMenu, isFullscreen]); // Added isFullscreen dependency
+  }, [showShareMenu, isFullscreen]); 
 
-  // Fullscreen handling
+  
   useEffect(() => {
     const handleFullscreenChange = () => {
       const fullscreenState = !!document.fullscreenElement;
@@ -102,7 +102,7 @@ const ArtFacts = () => {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  //  Scene setup (runs once) 
+  
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
@@ -276,7 +276,7 @@ const ArtFacts = () => {
           console.warn("Guide audio blocked:", err);
         });
 
-        // FIXED: Use ref to get current states (not captured in closure)
+        
         guideAudioRef.current.onended = () => {
           // Only resume background music if user wants it AND no video is playing
           if (audioRef.current && isMusicPlayingRef.current && !isVideoPlayingRef.current) {
@@ -380,9 +380,8 @@ const ArtFacts = () => {
   useEffect(() => {
     if (!audioRef.current) return;
   
-    // Mute if video is playing OR user has muted manually
+    
     if (isMusicPlaying && !isVideoPlaying) {
-      // Try to play only if music should be playing and no video is playing
       audioRef.current.play().catch(() => {
         console.log("Background music blocked until user interaction.");
       });
@@ -416,7 +415,6 @@ const ArtFacts = () => {
       action: async () => {
         try {
           await navigator.clipboard.writeText(window.location.href);
-          // You could add a toast notification here
           console.log('Link copied to clipboard!');
         } catch (err) {
           console.error('Failed to copy link:', err);
@@ -503,7 +501,7 @@ const ArtFacts = () => {
       guideAudioRef.current = null;
     }
 
-    // FIXED: Only resume background music if it should be playing AND no video is playing
+    
     if (audioRef.current && isMusicPlaying && !isVideoPlaying) {
       audioRef.current.play().catch((err) => {
         console.warn("Background music resume blocked:", err);
@@ -648,7 +646,7 @@ const ArtFacts = () => {
                 <div className="py-2">
                   {shareOptions
                     .filter(option => {
-                      // Only show Native Share if supported
+                      
                       if (option.name === 'Native Share') {
                         return navigator.share;
                       }

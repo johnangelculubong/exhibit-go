@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from '@iconify/react';
 
-// Hero details with enhanced data structure including video data
+// Hero details with video data
 const heroDetails = {
   "Hero 1": {
     name: "Andres Bonifacio",
@@ -108,7 +108,7 @@ const heroDetails = {
   },
 };
 
-// Artifact details with the same structure as heroes
+// Artifact details 
 const artifactDetails = {
   "Artifact 1": {
     name: "Golden Tara of Agusan",
@@ -214,7 +214,7 @@ const artifactDetails = {
   }
 };
 
-// Combine both datasets
+
 const allItems = { ...heroDetails, ...artifactDetails };
 
 // Video Modal Component
@@ -260,7 +260,7 @@ const VideoModal = ({ isOpen, onClose, video, itemColor, onVideoPlayingChange })
     }
     return () => {
       document.removeEventListener('keydown', handleEscapeKey);
-      // Reset video playing state when modal closes
+      
       onVideoPlayingChange(false);
     };
   }, [isOpen, handleEscapeKey, onVideoPlayingChange]);
@@ -350,31 +350,31 @@ const VideoModal = ({ isOpen, onClose, video, itemColor, onVideoPlayingChange })
 const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-  // Handle escape key press
+  
   const handleEscapeKey = useCallback((event) => {
     if (event.key === 'Escape') {
       onClose();
     }
   }, [onClose]);
 
-  // Handle click outside modal
+  
   const handleBackdropClick = useCallback((event) => {
     if (event.target === event.currentTarget) {
       onClose();
     }
   }, [onClose]);
 
-  // Close video when modal closes
+  
   const handleModalClose = useCallback(() => {
     setIsVideoOpen(false);
     onClose();
   }, [onClose]);
 
-  // Add event listeners
+ 
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('keydown', handleEscapeKey);
-      document.body.style.overflow = 'hidden'; // Prevent body scroll
+      document.body.style.overflow = 'hidden'; 
     }
 
     return () => {
@@ -383,7 +383,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
     };
   }, [isOpen, handleEscapeKey]);
 
-  // Reset video playing state when artifact modal closes
+  
   useEffect(() => {
     if (!isOpen) {
       setIsVideoOpen(false);
@@ -393,15 +393,12 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
 
   if (!isOpen || !artifact) return null;
 
-  // Get item from combined dataset
   const item = allItems[artifact.label] || null;
   if (!item) return null;
 
-  // Determine if this is a hero or artifact
   const isArtifact = item.type === 'artifact';
   const isHero = item.type === 'hero';
 
-  // Get appropriate icons and labels
   const getItemIcon = () => {
     if (isArtifact) return "mdi:treasure-chest";
     if (isHero) return "mdi:account-star";
@@ -453,7 +450,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                 background: `linear-gradient(135deg, ${item.color}15 0%, white 30%, white 70%, ${item.color}15 100%)`
               }}
             >
-              {/* Header with colored accent */}
+              {/* Header */}
               <div 
                 className="h-2 w-full rounded-t-3xl"
                 style={{ backgroundColor: item.color }}
@@ -470,7 +467,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                 <Icon icon="mdi:close" className="w-5 h-5" />
               </motion.button>
 
-              {/* Video Button - positioned near the image */}
+              {/* Video Button */}
               {item.video && (
                 <motion.button
                   onClick={() => setIsVideoOpen(true)}
@@ -492,7 +489,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
               )}
 
               <div className="p-6 sm:p-8">
-                {/* Item Image with enhanced styling */}
+                {/* Item Image */}
                 {item.image && (
                   <motion.div 
                     className="flex justify-center mb-6"
@@ -528,7 +525,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                           </motion.div>
                         </motion.div>
                       )}
-                      {/* Decorative frame corner */}
+                      
                       <div 
                         className="absolute -top-2 -right-2 w-6 h-6 rounded-full shadow-lg flex items-center justify-center"
                         style={{ backgroundColor: item.color }}
@@ -597,7 +594,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                   </div>
                 </motion.div>
 
-                {/* Key Contribution Highlight */}
+                
                 <motion.div
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
@@ -701,7 +698,7 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                 </motion.div>
               </div>
 
-              {/* Decorative elements */}
+              
               <div 
                 className="absolute top-3 left-3 w-6 h-6 rounded-full opacity-20 pointer-events-none"
                 style={{ backgroundColor: item.color }}

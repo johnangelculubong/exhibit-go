@@ -28,7 +28,7 @@ const Entrance = () => {
           alt="Go to National Heroes"
           className="w-32 drop-shadow-[0_0_15px_rgba(255,255,0,0.7)] animate-pulse"
         />
-        {/* Hover Label */}
+        
         <p className="absolute left-1/2 top-full mt-3 -translate-x-1/2 text-yellow-300 text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           National Heroes
         </p>
@@ -44,7 +44,7 @@ const Entrance = () => {
           alt="Go to Artifacts"
           className="w-32 drop-shadow-[0_0_15px_rgba(255,255,0,0.7)] animate-pulse"
         />
-        {/* Hover Label */}
+        
         <p className="absolute left-1/2 top-full mt-3 -translate-x-1/2 text-yellow-300 text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           Artifacts
         </p>
