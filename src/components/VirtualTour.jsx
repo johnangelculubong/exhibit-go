@@ -516,29 +516,30 @@ const VirtualTour = () => {
       </div>
 
       {/* Navigation Controls */}
-      <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="bg-[#5A536E] bg-opacity-80 backdrop-blur-md rounded-full px-6 py-2 flex items-center space-x-4">
-          {/* Previous */}
-          <button className="text-white hover:text-gray-300 transition-colors"
-          onClick={() => navigate("/")}
-          >
-            <Icon icon="mdi:chevron-left" className="w-8 h-8" />
-          </button>
-          
-          <div className="grid grid-cols-2 gap-1">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className={`w-5 h-5 rounded-sm ${i === 1 ? 'bg-white' : 'bg-white bg-opacity-50'}`}></div>
-            ))}
-          </div>
-          
-          {/* Next */}
-          <button className="text-white hover:text-gray-300 transition-colors"
-          onClick={() => navigate("/virtual-tour/room2")}
-          >
-            <Icon icon="mdi:chevron-right" className="w-8 h-8" />
-          </button>
-        </div>
-      </div>
+            <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 z-30 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>
+              <div className="bg-[#5A536E] bg-opacity-80 backdrop-blur-md rounded-full px-0 py-1 flex items-center justify-between min-w-[250px]">
+                {/* Previous */}
+                <button className="text-white hover:text-gray-300 transition-colors"
+                onClick={() => navigate("/entrance")}
+                >
+                  <Icon icon="mdi:chevron-left" className="w-12 h-12" />
+                </button>
+                
+                <div className="grid grid-cols-2 gap-1 mx-8">
+                  {[...Array(4)].map((_, i) => (
+                    <div key={i} className={`w-5 h-5 rounded-sm ${i === 1 ? 'bg-white' : 'bg-white bg-opacity-50'}`}></div>
+                  ))}
+                </div>
+                
+                {/* Next */}
+                <button className="text-white hover:text-gray-300 transition-colors"
+                onClick={() => navigate("/virtual-tour")}
+                >
+                  <Icon icon="mdi:chevron-right" className="w-12 h-12" />
+                </button>
+              </div>
+            </div>
+
 
       {/* Fullscreen and Share */}
       <div className={`absolute bottom-4 right-4 flex items-center space-x-2 z-30 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}>

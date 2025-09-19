@@ -27,7 +27,7 @@ const AboutPage = () => {
   const handleExploreClick = () => {
     setIsTransitioning(true);
     setTimeout(() => {
-      navigate("/virtual-tour");
+      navigate("/entrance");
     }, 1200); // 
   };
 
@@ -85,7 +85,6 @@ const AboutPage = () => {
           ← {getTranslation(selectedLanguage, "about.backToHome")}
         </motion.button>
 
-        {/* Glass Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

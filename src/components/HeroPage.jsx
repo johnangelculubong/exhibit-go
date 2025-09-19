@@ -3,8 +3,8 @@ import { ChevronRight, Globe, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { languages, getTranslation } from './translations';
 import Pepe from "../assets/images/Pepe.jpg";
-import PhilAme from "../assets/images/ph-am.jpg";
-import Kkk from "../assets/images/kkk.jpg";
+import AcientPottery from "../assets/images/ManunggulJar.jpg";
+import TraditionalAttire from "../assets/images/tradionalAttire.jpg";
 import bgImage from "../assets/images/background.jpg";
 import "./HeroPage.css";
 
@@ -12,8 +12,8 @@ import "./HeroPage.css";
 const CAROUSEL_INTERVAL = 3000;
 const CAROUSEL_IMAGES = [
   { src: Pepe, alt: 'Reformists in Philippine History', page: '/virtual-tour' },
-  { src: Kkk, alt: 'The Philippine Revolution Heroes', page: '/philippine-revolution' },
-  { src: PhilAme, alt: 'Philippine-American War Heroes', page: '/philippine-american-war' }
+  { src: AcientPottery, alt: 'The Philippine Revolution Heroes', page: '/art-facts' },
+  { src: TraditionalAttire, alt: 'Philippine-American War Heroes', page: '/philippine-american-war' }
 ];
 
 const HeroPage = () => {
@@ -61,7 +61,7 @@ const HeroPage = () => {
     handleExploreClick: () => {
       setIsTransitioning(true);
       setTimeout(() => {
-        navigate('/virtual-tour');
+        navigate('/entrance');
       }, 1200);
     }
   }), [navigate]);

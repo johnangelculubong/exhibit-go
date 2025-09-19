@@ -14,11 +14,11 @@ const heroDetails = {
     significance: "Founded the Katipunan revolutionary society",
     keyContribution: "Organized the masses against Spanish colonial rule",
     color: "#8B5A3C",
+    type: "hero",
     video: {
       title: "The Life of Andres Bonifacio",
       description: "A documentary about the Father of the Philippine Revolution",
       src: "/assets/videos/bonifacio-history.mp4",
-      duration: "5:32"
     }
   },
   "Hero 2": {
@@ -31,11 +31,11 @@ const heroDetails = {
     significance: "Declared Philippine Independence",
     keyContribution: "Established the First Philippine Republic",
     color: "#1E40AF",
+    type: "hero",
     video: {
       title: "Emilio Aguinaldo: First President",
       description: "The story of Philippine independence declaration",
       src: "/assets/videos/aguinaldo-history.mp4",
-      duration: "4:18"
     }
   },
   "Hero 3": {
@@ -48,11 +48,11 @@ const heroDetails = {
     significance: "Chief Political Adviser and Constitutional Expert",
     keyContribution: "Drafted the Malolos Constitution",
     color: "#7C3AED",
+    type: "hero",
     video: {
       title: "Apolinario Mabini: The Sublime Paralytic",
       description: "The intellectual architect of the Philippine Republic",
       src: "/assets/videos/mabini-history.mp4",
-      duration: "6:45"
     }
   },
   "Hero 4": {
@@ -65,11 +65,11 @@ const heroDetails = {
     significance: "Supreme Military Strategist",
     keyContribution: "Modernized Filipino military tactics and discipline",
     color: "#DC2626",
+    type: "hero",
     video: {
       title: "General Antonio Luna: Military Genius",
       description: "The fierce general who modernized Filipino warfare",
       src: "/assets/videos/luna-history.mp4",
-      duration: "7:12"
     }
   },
   "Hero 5": {
@@ -82,11 +82,11 @@ const heroDetails = {
     significance: "Revolutionary Support Network Leader",
     keyContribution: "Provided sanctuary and care for revolutionary fighters",
     color: "#059669",
+    type: "hero",
     video: {
       title: "Tandang Sora: Mother of the Revolution",
       description: "The nurturing mother who supported Filipino revolutionaries",
       src: "/assets/videos/melchora-history.mp4",
-      duration: "4:56"
     }
   },
   "Hero 6": {
@@ -99,17 +99,126 @@ const heroDetails = {
     significance: "National Awakening Through Literature",
     keyContribution: "Awakened Filipino consciousness through his writings",
     color: "#B45309",
+    type: "hero",
     video: {
       title: "Dr. Jose Rizal: The National Hero",
       description: "The life and works of the Philippines' greatest hero",
       src: "/assets/videos/rizal-history.mp4",
-      duration: "8:24"
     }
   },
 };
 
+// Artifact details with the same structure as heroes
+const artifactDetails = {
+  "Artifact 1": {
+    name: "Golden Tara of Agusan",
+    title: "Pre-Colonial Gold Artifact",
+    image: "/assets/artifacts/golden-tara.jpg",
+    bio: "A 21-karat gold statue discovered in 1917 along the Agusan River, believed to represent a Buddhist deity. It shows the influence of Indian culture and religion in pre-colonial Philippines.",
+    legacy: "Symbol of early Philippine connections with Southeast Asian and Indian civilizations.",
+    birthYear: "900–950 CE (approx.)",
+    significance: "Evidence of advanced gold craftsmanship and cultural exchange.",
+    keyContribution: "Represents pre-Hispanic spiritual and trade connections.",
+    color: "#C5A253",
+    type: "artifact",
+    video: {
+      title: "Golden Tara of Agusan",
+      description: "Exploring the origins and significance of the Golden Tara.",
+      src: "/assets/videos/golden-tara.mp4",
+    }
+  },
+  "Artifact 2": {
+    name: "Butuan Balangay",
+    title: "Ancient Wooden Boat",
+    image: "/assets/artifacts/balangay.jpg",
+    bio: "Large wooden boats used by ancient Filipinos for trade, travel, and migration. Several were discovered in Butuan, dating back to the 4th–13th centuries.",
+    legacy: "National Cultural Treasure; shows maritime skill of early Filipinos.",
+    birthYear: "320 CE (oldest found)",
+    significance: "Proof of early Philippine seafaring culture.",
+    keyContribution: "Enabled long-distance trade across Southeast Asia.",
+    color: "#6B4F2D",
+    type: "artifact",
+    video: {
+      title: "The Balangay: Ancient Boat of Butuan",
+      description: "A documentary on the discovery and legacy of the Balangay boats.",
+      src: "/assets/videos/balangay.mp4",
+    }
+  },
+  "Artifact 3": {
+    name: "Manunggul Jar",
+    title: "Secondary Burial Jar",
+    image: "/assets/artifacts/manunggul-jar.jpg",
+    bio: "A secondary burial jar from Palawan (890–710 BCE), decorated with a lid showing two figures in a boat, symbolizing the journey to the afterlife.",
+    legacy: "National Treasure; embodies ancient Filipino beliefs on death and the afterlife.",
+    birthYear: "890–710 BCE",
+    significance: "Reflects pre-colonial spirituality and artistry.",
+    keyContribution: "One of the finest pre-colonial artifacts of the Philippines.",
+    color: "#6A4C32",
+    type: "artifact",
+    video: {
+      title: "The Manunggul Jar",
+      description: "The story of the iconic burial jar from Palawan.",
+      src: "/assets/videos/manunggul-jar.mp4",
+    }
+  },
+  "Artifact 4": {
+    name: "Calatagan Pot",
+    title: "Earthenware with Ancient Script",
+    image: "/assets/artifacts/calatagan-pot.jpg",
+    bio: "A ritual earthenware pot discovered in Calatagan, Batangas, with inscriptions believed to be one of the earliest known forms of writing in the Philippines.",
+    legacy: "Evidence of early literacy and ritual practices.",
+    birthYear: "14th–15th century",
+    significance: "Contains one of the oldest examples of pre-colonial Philippine writing.",
+    keyContribution: "Highlights the use of indigenous scripts before Spanish colonization.",
+    color: "#8B6A4F",
+    type: "artifact",
+    video: {
+      title: "The Calatagan Pot",
+      description: "A closer look at the mysterious inscriptions of the Calatagan Pot.",
+      src: "/assets/videos/calatagan-pot.mp4",
+    }
+  },
+  "Artifact 5": {
+    name: "Lingling-o Ornaments",
+    title: "Pre-Colonial Gold & Jade Jewelry",
+    image: "/assets/artifacts/lingling-o.jpg",
+    bio: "Ear ornaments made of gold, jade, or stone, worn by early Filipinos as symbols of status, fertility, and spirituality.",
+    legacy: "Represents artistry and symbolism in pre-Hispanic society.",
+    birthYear: "500 BCE–500 CE",
+    significance: "Found across Southeast Asia, showing trade and shared culture.",
+    keyContribution: "Reflects identity, social class, and religious beliefs.",
+    color: "#3A7D6A",
+    type: "artifact",
+    video: {
+      title: "Lingling-o: Symbol of Fertility",
+      description: "An exploration of the jade ornaments found across the Philippines.",
+      src: "/assets/videos/lingling-o.mp4",
+    }
+  },
+  "Artifact 6": {
+    name: "Laguna Copperplate Inscription",
+    title: "Oldest Written Document in the Philippines",
+    image: "/assets/artifacts/laguna-copperplate.jpg",
+    bio: "A legal document dated 900 CE, written in a mix of Old Malay, Sanskrit, and Old Javanese, discovered in Laguna in 1989.",
+    legacy: "Proves literacy, organized society, and regional trade ties.",
+    birthYear: "900 CE",
+    significance: "Earliest known written record in Philippine history.",
+    keyContribution: "Shows early legal systems and connections with neighboring cultures.",
+    color: "#4A4A4A",
+    type: "artifact",
+    video: {
+      title: "The Laguna Copperplate Inscription",
+      description: "A documentary on the earliest known Philippine written record.",
+      src: "/assets/videos/laguna-copperplate.mp4",
+    }
+  }
+};
+
+// Combine both datasets
+const allItems = { ...heroDetails, ...artifactDetails };
+
 // Video Modal Component
-const VideoModal = ({ isOpen, onClose, video, heroColor, onVideoPlayingChange }) => {
+const VideoModal = ({ isOpen, onClose, video, itemColor, onVideoPlayingChange }) => {
   const [isVideoReady, setIsVideoReady] = useState(false);
 
   const handleEscapeKey = useCallback((event) => {
@@ -179,7 +288,7 @@ const VideoModal = ({ isOpen, onClose, video, heroColor, onVideoPlayingChange })
           {/* Video Header */}
           <div 
             className="p-4 text-white flex justify-between items-center"
-            style={{ backgroundColor: heroColor }}
+            style={{ backgroundColor: itemColor }}
           >
             <div>
               <h3 className="text-lg font-semibold">{video.title}</h3>
@@ -226,16 +335,9 @@ const VideoModal = ({ isOpen, onClose, video, heroColor, onVideoPlayingChange })
             <div className="flex items-center justify-between text-sm text-gray-600">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
-                  <Icon icon="mdi:clock" className="w-4 h-4" />
-                  <span>{video.duration}</span>
-                </div>
-                <div className="flex items-center gap-1">
                   <Icon icon="mdi:video" className="w-4 h-4" />
                   <span>Historical Documentary</span>
                 </div>
-              </div>
-              <div className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                Audio automatically managed
               </div>
             </div>
           </div>
@@ -291,8 +393,32 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
 
   if (!isOpen || !artifact) return null;
 
-  const hero = heroDetails[artifact.label] || null;
-  if (!hero) return null;
+  // Get item from combined dataset
+  const item = allItems[artifact.label] || null;
+  if (!item) return null;
+
+  // Determine if this is a hero or artifact
+  const isArtifact = item.type === 'artifact';
+  const isHero = item.type === 'hero';
+
+  // Get appropriate icons and labels
+  const getItemIcon = () => {
+    if (isArtifact) return "mdi:treasure-chest";
+    if (isHero) return "mdi:account-star";
+    return "mdi:star";
+  };
+
+  const getItemTypeLabel = () => {
+    if (isArtifact) return "Philippine Artifact";
+    if (isHero) return "Philippine Hero";
+    return "Historical Item";
+  };
+
+  const getDateLabel = () => {
+    if (isArtifact) return "Dating from";
+    if (isHero) return "Born";
+    return "From";
+  };
 
   return (
     <>
@@ -324,13 +450,13 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
               }}
               onClick={(e) => e.stopPropagation()}
               style={{
-                background: `linear-gradient(135deg, ${hero.color}15 0%, white 30%, white 70%, ${hero.color}15 100%)`
+                background: `linear-gradient(135deg, ${item.color}15 0%, white 30%, white 70%, ${item.color}15 100%)`
               }}
             >
               {/* Header with colored accent */}
               <div 
                 className="h-2 w-full rounded-t-3xl"
-                style={{ backgroundColor: hero.color }}
+                style={{ backgroundColor: item.color }}
               />
 
               {/* Close button */}
@@ -345,17 +471,17 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
               </motion.button>
 
               {/* Video Button - positioned near the image */}
-              {hero.video && (
+              {item.video && (
                 <motion.button
                   onClick={() => setIsVideoOpen(true)}
                   className="absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-lg transition-all z-10"
                   style={{ 
-                    backgroundColor: hero.color,
-                    boxShadow: `0 4px 15px ${hero.color}40`
+                    backgroundColor: item.color,
+                    boxShadow: `0 4px 15px ${item.color}40`
                   }}
                   whileHover={{ 
                     scale: 1.1,
-                    boxShadow: `0 6px 20px ${hero.color}50`
+                    boxShadow: `0 6px 20px ${item.color}50`
                   }}
                   whileTap={{ scale: 0.95 }}
                   aria-label="Watch historical video"
@@ -366,8 +492,8 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
               )}
 
               <div className="p-6 sm:p-8">
-                {/* Hero Image with enhanced styling */}
-                {hero.image && (
+                {/* Item Image with enhanced styling */}
+                {item.image && (
                   <motion.div 
                     className="flex justify-center mb-6"
                     initial={{ scale: 0, rotate: -10 }}
@@ -377,18 +503,18 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                     <div 
                       className="relative p-1 rounded-2xl shadow-lg"
                       style={{ 
-                        background: `linear-gradient(45deg, ${hero.color}, ${hero.color}80)` 
+                        background: `linear-gradient(45deg, ${item.color}, ${item.color}80)` 
                       }}
                     >
                       <motion.img
-                        src={hero.image}
-                        alt={hero.name}
+                        src={item.image}
+                        alt={item.name}
                         className="max-h-48 sm:max-h-64 w-auto object-cover rounded-xl bg-white"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.3 }}
                       />
                       {/* Video indicator on image */}
-                      {hero.video && (
+                      {item.video && (
                         <motion.div
                           onClick={() => setIsVideoOpen(true)}
                           className="absolute inset-0 rounded-xl bg-black bg-opacity-0 hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-all group"
@@ -405,16 +531,16 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                       {/* Decorative frame corner */}
                       <div 
                         className="absolute -top-2 -right-2 w-6 h-6 rounded-full shadow-lg flex items-center justify-center"
-                        style={{ backgroundColor: hero.color }}
+                        style={{ backgroundColor: item.color }}
                       >
-                        <Icon icon="mdi:star" className="w-4 h-4 text-white" />
+                        <Icon icon={getItemIcon()} className="w-4 h-4 text-white" />
                       </div>
                     </div>
                   </motion.div>
                 )}
 
                 {/* Video Section Info */}
-                {hero.video && (
+                {item.video && (
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -425,23 +551,23 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                       onClick={() => setIsVideoOpen(true)}
                       className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all"
                       style={{ 
-                        backgroundColor: `${hero.color}15`,
-                        color: hero.color,
-                        border: `1px solid ${hero.color}30`
+                        backgroundColor: `${item.color}15`,
+                        color: item.color,
+                        border: `1px solid ${item.color}30`
                       }}
                       whileHover={{ 
                         scale: 1.05,
-                        backgroundColor: `${hero.color}25`
+                        backgroundColor: `${item.color}25`
                       }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <Icon icon="mdi:video-outline" className="w-4 h-4" />
-                      Watch History of {hero.name}
+                      {isArtifact ? `Discover ${item.name}` : `Watch History of ${item.name}`}
                     </motion.button>
                   </motion.div>
                 )}
 
-                {/* Hero Basic Info */}
+                {/* Item Basic Info */}
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -451,22 +577,22 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                   <h2 
                     id="modal-title"
                     className="text-3xl sm:text-4xl font-bold mb-2"
-                    style={{ color: hero.color }}
+                    style={{ color: item.color }}
                   >
-                    {hero.name}
+                    {item.name}
                   </h2>
                   <p className="text-lg text-gray-600 font-medium mb-2">
-                    {hero.title}
+                    {item.title}
                   </p>
                   <div className="flex justify-center items-center gap-4 text-sm text-gray-500">
                     <div className="flex items-center gap-1">
                       <Icon icon="mdi:calendar" className="w-4 h-4" />
-                      <span>Born {hero.birthYear}</span>
+                      <span>{getDateLabel()} {item.birthYear}</span>
                     </div>
                     <div className="w-1 h-1 bg-gray-400 rounded-full" />
                     <div className="flex items-center gap-1">
-                      <Icon icon="mdi:flag" className="w-4 h-4" />
-                      <span>Philippine Hero</span>
+                      <Icon icon={getItemIcon()} className="w-4 h-4" />
+                      <span>{getItemTypeLabel()}</span>
                     </div>
                   </div>
                 </motion.div>
@@ -481,30 +607,30 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                   <div 
                     className="rounded-2xl p-4 border-l-4"
                     style={{ 
-                      borderColor: hero.color,
-                      backgroundColor: `${hero.color}10`
+                      borderColor: item.color,
+                      backgroundColor: `${item.color}10`
                     }}
                   >
                     <div className="flex items-start gap-3">
                       <div 
                         className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1"
-                        style={{ backgroundColor: hero.color }}
+                        style={{ backgroundColor: item.color }}
                       >
-                        <Icon icon="mdi:medal" className="w-4 h-4 text-white" />
+                        <Icon icon={isArtifact ? "mdi:diamond-stone" : "mdi:medal"} className="w-4 h-4 text-white" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-gray-800 mb-1">
-                          Key Contribution
+                          {isArtifact ? "Historical Significance" : "Key Contribution"}
                         </h3>
                         <p className="text-gray-700 text-sm">
-                          {hero.keyContribution}
+                          {item.keyContribution}
                         </p>
                       </div>
                     </div>
                   </div>
                 </motion.div>
 
-                {/* Biography */}
+                {/* Description/Biography */}
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -513,10 +639,10 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                 >
                   <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
                     <Icon icon="mdi:book-open-page-variant" className="w-5 h-5 text-gray-600" />
-                    Biography
+                    {isArtifact ? "Description" : "Biography"}
                   </h3>
                   <p id="modal-description" className="text-gray-700 leading-relaxed">
-                    {hero.bio}
+                    {item.bio}
                   </p>
                 </motion.div>
 
@@ -528,12 +654,12 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                   className="mb-6"
                 >
                   <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Icon icon="mdi:trophy" className="w-5 h-5 text-gray-600" />
+                    <Icon icon={isArtifact ? "mdi:history" : "mdi:trophy"} className="w-5 h-5 text-gray-600" />
                     Legacy
                   </h3>
                   <div className="bg-gray-50 rounded-2xl p-4">
                     <p className="text-gray-700 leading-relaxed">
-                      {hero.legacy}
+                      {item.legacy}
                     </p>
                   </div>
                 </motion.div>
@@ -556,21 +682,21 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
                   </motion.button>
                   <motion.button
                     onClick={() =>
-                      alert(`More resources about ${hero.name} coming soon!`)
+                      alert(`More resources about ${item.name} coming soon!`)
                     }
                     className="px-6 py-3 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2 shadow-lg"
                     style={{ 
-                      backgroundColor: hero.color,
-                      boxShadow: `0 4px 20px ${hero.color}40`
+                      backgroundColor: item.color,
+                      boxShadow: `0 4px 20px ${item.color}40`
                     }}
                     whileHover={{ 
                       scale: 1.02,
-                      boxShadow: `0 6px 25px ${hero.color}50`
+                      boxShadow: `0 6px 25px ${item.color}50`
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Icon icon="mdi:school" className="w-4 h-4" />
-                    Learn More
+                    <Icon icon={isArtifact ? "mdi:magnify" : "mdi:school"} className="w-4 h-4" />
+                    {isArtifact ? "Explore More" : "Learn More"}
                   </motion.button>
                 </motion.div>
               </div>
@@ -578,11 +704,11 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
               {/* Decorative elements */}
               <div 
                 className="absolute top-3 left-3 w-6 h-6 rounded-full opacity-20 pointer-events-none"
-                style={{ backgroundColor: hero.color }}
+                style={{ backgroundColor: item.color }}
               />
               <div 
                 className="absolute bottom-3 right-8 w-4 h-4 rounded-full opacity-10 pointer-events-none"
-                style={{ backgroundColor: hero.color }}
+                style={{ backgroundColor: item.color }}
               />
             </motion.div>
           </motion.div>
@@ -593,8 +719,8 @@ const ArtifactModal = ({ isOpen, onClose, artifact, onVideoPlayingChange }) => {
       <VideoModal
         isOpen={isVideoOpen}
         onClose={() => setIsVideoOpen(false)}
-        video={hero?.video}
-        heroColor={hero?.color}
+        video={item?.video}
+        itemColor={item?.color}
         onVideoPlayingChange={onVideoPlayingChange}
       />
     </>
